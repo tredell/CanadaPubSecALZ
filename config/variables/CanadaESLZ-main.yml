@@ -2,8 +2,8 @@
 # Copyright (c) Microsoft Corporation.
 # Licensed under the MIT license.
 #
-# THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, 
-# EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES 
+# THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
+# EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES
 # OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.
 # ----------------------------------------------------------------------------------
 
@@ -22,14 +22,16 @@
 
 variables:
   # Management Groups
+    #Tenant Root ID
   var-parentManagementGroupId: 343ddfdb-bef5-46d9-99cf-ed67d5948783
+    #topLevelMG Name Prefix (Not used at GoA)
   var-topLevelManagementGroupName: pubsec
 
   # Logging
-  var-logging-managementGroupId: pubsecPlatformManagement
+  var-logging-managementGroupId: MG07
   var-logging-subscriptionId: bc0a4f9f-07fa-4284-b1bd-fbad38578d3a
-  var-logging-logAnalyticsResourceGroupName: pubsec-central-logging-rg
-  var-logging-logAnalyticsWorkspaceName: log-analytics-workspace
+  var-logging-logAnalyticsResourceGroupName: GOA-cc-man-rg-secops
+  var-logging-logAnalyticsWorkspaceName: Goa-cc-man-la-ci-secops
   var-logging-logAnalyticsRetentionInDays: 730
   var-logging-logAnalyticsAutomationAccountName: automation-account
   var-logging-diagnosticSettingsforNetworkSecurityGroupsStoragePrefix: pubsecnsg
@@ -169,29 +171,29 @@ variables:
 
   var-hubnetwork-mrzMazSubnetName: MazSubnet
   var-hubnetwork-mrzMazSubnetAddressPrefix: 10.18.4.0/25
-  
+
   var-hubnetwork-mrzInfSubnetName: InfSubnet
   var-hubnetwork-mrzInfSubnetAddressPrefix: 10.18.4.128/25
-  
+
   var-hubnetwork-mrzSecSubnetName: SecSubnet
   var-hubnetwork-mrzSecSubnetAddressPrefix: 10.18.5.0/26
-  
+
   var-hubnetwork-mrzLogSubnetName: LogSubnet
   var-hubnetwork-mrzLogSubnetAddressPrefix: 10.18.5.64/26
-  
+
   var-hubnetwork-mrzMgmtSubnetName: MgmtSubnet
   var-hubnetwork-mrzMgmtSubnetAddressPrefix: 10.18.5.128/26
 
   var-hubnetwork-bastionName: bastion
   var-hubnetwork-bastionSku: Standard
-  var-hubnetwork-bastionScaleUnits: 2 
+  var-hubnetwork-bastionScaleUnits: 2
 
   ####################################################################################
   ### Hub Networking with Azure Firewall                                           ###
   ####################################################################################
   var-hubnetwork-azfw-rgPolicyName: pubsec-azure-firewall-policy-rg
   var-hubnetwork-azfw-policyName: pubsecAzureFirewallPolicy
-  
+
   var-hubnetwork-azfw-rgHubName: pubsec-hub-networking-rg
   var-hubnetwork-azfw-hubVnetName: hub-vnet
   var-hubnetwork-azfw-hubVnetAddressPrefixRFC1918: 10.18.0.0/22
@@ -205,7 +207,7 @@ variables:
   var-hubnetwork-azfw-hubAzureFirewallSubnetAddressPrefix: 10.18.1.0/24
   var-hubnetwork-azfw-hubAzureFirewallManagementSubnetAddressPrefix: 10.18.2.0/26
   var-hubnetwork-azfw-hubBastionSubnetAddressPrefix: 192.168.0.0/24
-  
+
   var-hubnetwork-azfw-azureFirewallName: pubsecAzureFirewall
   var-hubnetwork-azfw-azureFirewallZones: '["1", "2", "3"]'
   var-hubnetwork-azfw-azureFirewallForcedTunnelingEnabled: false
@@ -214,7 +216,7 @@ variables:
   ####################################################################################
   ### Hub Networking with Fortinet Firewalls                                       ###
   ####################################################################################
- 
+
   ## Hub Networking - Core Virtual Network
   var-hubnetwork-nva-rgHubName: pubsec-hub-networking-rg
   var-hubnetwork-nva-hubVnetName: hub-vnet
