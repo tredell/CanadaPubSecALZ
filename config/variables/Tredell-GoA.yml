@@ -66,7 +66,7 @@ variables:
           "comments": "Built-in Contributor Role",
           "roleDefinitionId": "b24988ac-6180-42a0-ab88-20f7382dd24c",
           "securityGroupObjectIds": [
-              "38f33f7e-a471-4630-8ce9-c6653495a2ee"
+              "70c7a3e4-2890-4fdf-b2f9-7167ff9a2a64"
           ]
       }
     ]
