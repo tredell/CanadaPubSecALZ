@@ -98,7 +98,7 @@ variables:
   var-identity-managementGroupId: MG06
   var-identity-rgPrivateDnsZonesName: goa-cc-ident-rg-dns
   var-identity-network-ResourceGroupName: Goa-cc-ident-rg-tor
-  var-identity-network-vnetId: /subscriptions/0e5973f6-2645-476e-b753-3a49c6c334d2/resourceGroups/Goa-cc-ident-rg-tor/providers/Microsoft.Network/virtualNetworks/Goa-cc-ident-vnet-10.112.176.0-255
+  var-identity-network-vnetId: /subscriptions/d1202e26-8bc8-42c0-a581-cda2ac40e171/resourceGroups/Goa-cc-ident-rg-tor/providers/Microsoft.Network/virtualNetworks/Goa-cc-ident-vnet-10.112.176.0-255
 
   var-identity-serviceHealthAlerts: >
     {
