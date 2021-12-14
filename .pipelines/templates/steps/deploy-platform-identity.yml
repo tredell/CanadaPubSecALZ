@@ -50,6 +50,34 @@ steps:
       $(var-bashPostInjectScript)
 
 - task: AzureCLI@2
+  displayName: Configure Logging
+  inputs:
+    azureSubscription: $(serviceConnection)
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      $(var-bashPreInjectScript)
+
+      echo "Deploying ${{ parameters.configTemplate }} using ${{ parameters.deployOperation}} operation..."
+
+      az deployment sub ${{ parameters.deployOperation }} \
+        --location $(deploymentRegion) \
+        --subscription $(var-identity-subscriptionId) \
+        --template-file ${{ parameters.configTemplate }} \
+        --parameters \
+            serviceHealthAlerts='$(var-identity-serviceHealthAlerts)' \
+            securityCenter='$(var-identity-securityCenter)' \
+            subscriptionRoleAssignments='$(var-identity-subscriptionRoleAssignments)' \
+            subscriptionBudget='$(var-identity-subscriptionBudget)'\
+            subscriptionTags='$(var-identity-subscriptionTags)' \
+            resourceTags='$(var-identity-resourceTags)' \
+            logAnalyticsWorkspaceResourceId='$(var-logging-logAnalyticsWorkspaceResourceId)'
+
+      $(var-bashPostInjectScript)
+    workingDirectory: '${{ parameters.workingDir }}/lz-platform-logging'
+
+
+- task: AzureCLI@2
   displayName: Azure Policy - Enable Private DNS Zone Policies (if var-identity-deployPrivateDnsZones=true)
   inputs:
     azureSubscription: $(serviceConnection)
