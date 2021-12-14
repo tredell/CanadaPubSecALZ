@@ -30,10 +30,10 @@ variables:
   # Logging
   var-logging-managementGroupId: MG07
   var-logging-subscriptionId: 2e3ad1b7-535d-4f70-bd03-4c0923f8d7af
-  var-logging-logAnalyticsResourceGroupName: lll-PlatLogs-RG-PROD
-  var-logging-logAnalyticsWorkspaceName: lll-btw-LAW-PROD
+  var-logging-logAnalyticsResourceGroupName: GOA-cc-man-rg-secops
+  var-logging-logAnalyticsWorkspaceName: btw-cc-man-la-ci-secops
   var-logging-logAnalyticsRetentionInDays: 730
-  var-logging-logAnalyticsAutomationAccountName: lll-PlatAutomation-PROD
+  var-logging-logAnalyticsAutomationAccountName: btw-cc-man-aa-ci-secops
   var-logging-diagnosticSettingsforNetworkSecurityGroupsStoragePrefix: goansg
   var-logging-serviceHealthAlerts: >
     {
