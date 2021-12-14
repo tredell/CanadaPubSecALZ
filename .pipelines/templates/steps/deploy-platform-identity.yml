@@ -73,7 +73,8 @@ steps:
           resourceTags='$(var-identity-resourceTags)' \
           logAnalyticsWorkspaceResourceId='$(var-logging-logAnalyticsWorkspaceResourceId)' \
           deployPrivateDnsZones='$(var-identity-deployPrivateDnsZones)' \
-          rgPrivateDnsZonesName='$(var-identity-rgPrivateDnsZonesName)'
+          rgPrivateDnsZonesName='$(var-identity-rgPrivateDnsZonesName)' \
+          privateDnsZonesNetworkVnetId='$(var-identity-network-vnetId)'
 
       $(var-bashPostInjectScript)
     workingDirectory: '${{ parameters.workingDir }}/lz-platform-identity'
