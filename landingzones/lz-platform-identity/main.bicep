@@ -5,6 +5,11 @@ param deployPrivateDnsZones bool
 @description('Private DNS Zone Resource Group Name.')
 param rgPrivateDnsZonesName string
 
+// Identity Network Resources
+@description('vNET ID that Privatelink DNS Zones should be attached to.')
+param networkVnetId string
+
+
 
 targetScope = 'subscription'
 
@@ -23,7 +28,9 @@ module privatelinkDnsZones '../../azresources/network/private-dns-zone-privateli
   name: 'deploy-privatelink-private-dns-zones'
   scope: rgPrivateDnsZones
   params: {
-    vnetId: 'Goa-cc-ident-vnet-10.112.176.0-255'
+    //verify the vnet id against GOA's actual setting
+    //vnetId: '/subscriptions/0e5973f6-2645-476e-b753-3a49c6c334d2/resourceGroups/Goa-cc-ident-rg-tor/providers/Microsoft.Network/virtualNetworks/Goa-cc-ident-vnet-10.112.176.0-255'
+    vnetId: networkVnetId
     dnsCreateNewZone: true
     dnsLinkToVirtualNetwork: true
 

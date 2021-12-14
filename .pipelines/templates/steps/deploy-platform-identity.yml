@@ -1,0 +1,85 @@
+# ----------------------------------------------------------------------------------
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT license.
+#
+# THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
+# EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES
+# OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.
+# ----------------------------------------------------------------------------------
+
+parameters:
+  - name: description
+    type: string
+  - name: moveTemplate
+    type: string
+  - name: configTemplate
+    type: string
+  - name: workingDir
+    type: string
+  - name: deployOperation
+    type: string
+    default: create
+    values:
+      - create
+      - what-if
+
+steps:
+
+- template: ./move-subscription.yml
+  parameters:
+    managementGroup: $(var-identity-managementGroupId)
+    subscriptionGuid: $(var-identity-subscriptionId)
+    subscriptionLocation: $(deploymentRegion)
+    templateDirectory: $(Build.SourcesDirectory)/landingzones/utils/mg-move
+    templateFile: move-subscription.bicep
+    workingDir: ${{ parameters.workingDir }}/utils/mg-move
+
+- task: AzureCLI@2
+  displayName: Register Resource Providers
+  inputs:
+    azureSubscription: $(serviceConnection)
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      $(var-bashPreInjectScript)
+
+      az account set -s $(var-identity-subscriptionId)
+
+      az provider register -n Microsoft.ContainerService --subscription '$(var-identity-subscriptionId)'
+
+      $(var-bashPostInjectScript)
+
+- task: AzureCLI@2
+  displayName: Azure Policy - Enable Private DNS Zone Policies (if var-identity-deployPrivateDnsZones=true)
+  inputs:
+    azureSubscription: $(serviceConnection)
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      $(var-bashPreInjectScript)
+
+      case $(var-identity-deployPrivateDnsZones) in
+        (true)
+          echo "Identity vNET will manage private dns zones, creating Azure Policy assignment to automatically create Private Endpoint DNS Zones"
+
+          # Apply the policy assignment
+          echo "Deploying policy assignment using policy/custom/assignments/DNSPrivateEndpoints.bicep"
+
+          az deployment mg ${{ parameters.deployOperation }} \
+            --location $(deploymentRegion) \
+            --management-group-id $(var-topLevelManagementGroupName) \
+            --template-file DNSPrivateEndpoints.bicep \
+            --parameters \
+                policyAssignmentManagementGroupId='$(var-topLevelManagementGroupName)' \
+                policyDefinitionManagementGroupId='$(var-topLevelManagementGroupName)' \
+                privateDNSZoneSubscriptionId='$(var-hubnetwork-subscriptionId)' \
+                privateDNSZoneResourceGroupName='$(var-hubnetwork-rgPrivateDnsZonesName)'\
+                logAnalyticsWorkspaceResourceId='$(var-logging-logAnalyticsWorkspaceResourceId)'
+          ;;
+        (*)
+          echo "Identity vNet Network will not manage private dns zones.  Azure Policy assignment will be skipped."
+          ;;
+      esac
+
+      $(var-bashPostInjectScript)
+    workingDirectory: '$(System.DefaultWorkingDirectory)/policy/custom/assignments'

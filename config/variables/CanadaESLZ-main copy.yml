@@ -25,16 +25,16 @@ variables:
     #Tenant Root ID
   var-parentManagementGroupId: 343ddfdb-bef5-46d9-99cf-ed67d5948783
     #topLevelMG Name Prefix (Not used at GoA)
-  var-topLevelManagementGroupName: MG01
+  var-topLevelManagementGroupName: pubsec
 
   # Logging
   var-logging-managementGroupId: MG07
-  var-logging-subscriptionId: 2e3ad1b7-535d-4f70-bd03-4c0923f8d7af
-  var-logging-logAnalyticsResourceGroupName: lll-PlatLogs-RG-PROD
-  var-logging-logAnalyticsWorkspaceName: lll-btw-LAW-PROD
+  var-logging-subscriptionId: bc0a4f9f-07fa-4284-b1bd-fbad38578d3a
+  var-logging-logAnalyticsResourceGroupName: GOA-cc-man-rg-secops
+  var-logging-logAnalyticsWorkspaceName: Goa-cc-man-la-ci-secops
   var-logging-logAnalyticsRetentionInDays: 730
-  var-logging-logAnalyticsAutomationAccountName: lll-PlatAutomation-PROD
-  var-logging-diagnosticSettingsforNetworkSecurityGroupsStoragePrefix: goansg
+  var-logging-logAnalyticsAutomationAccountName: automation-account
+  var-logging-diagnosticSettingsforNetworkSecurityGroupsStoragePrefix: pubsecnsg
   var-logging-serviceHealthAlerts: >
     {
       "resourceGroupName": "pubsec-service-health",
@@ -91,17 +91,6 @@ variables:
       "ProjectName": "project-name-tag",
       "TechnicalContact": "technical-contact-tag"
     }
-
-  # Identity Subscription / Private DNS Zones
-  var-identity-deployPrivateDnsZones: true
-  var-identity-subscriptionId: d1202e26-8bc8-42c0-a581-cda2ac40e171
-  var-identity-managementGroupId: MG06
-  var-identity-rgPrivateDnsZonesName: goa-cc-ident-rg-dns
-  var-identity-network-ResourceGroupName: Goa-cc-ident-rg-tor
-  var-identity-network-vnetId: /subscriptions/0e5973f6-2645-476e-b753-3a49c6c334d2/resourceGroups/Goa-cc-ident-rg-tor/providers/Microsoft.Network/virtualNetworks/Goa-cc-ident-vnet-10.112.176.0-255
-
-
-
 
   # Hub Networking
   var-hubnetwork-managementGroupId: pubsecPlatformConnectivity
