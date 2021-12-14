@@ -12,10 +12,10 @@
             "value": "Default"
         },
         "privateDNSZoneSubscriptionId": {
-            "value": "{{var-hubnetwork-subscriptionId}}"
+            "value": "{{var-identity-subscriptionId}}"
         },
         "privateDNSZoneResourceGroupName": {
-            "value": "{{var-hubnetwork-rgPrivateDnsZonesName}}"
+            "value": "{{var-identity-rgPrivateDnsZonesName}}"
         }
     }
 }
