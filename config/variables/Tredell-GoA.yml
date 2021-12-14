@@ -23,7 +23,7 @@
 variables:
   # Management Groups
     #Tenant Root ID
-  var-parentManagementGroupId: 343ddfdb-bef5-46d9-99cf-ed67d5948783
+  var-parentManagementGroupId: 62113dcb-ef64-4ff0-8caf-2f4f80c80f79
     #topLevelMG Name Prefix (Not used at GoA)
   var-topLevelManagementGroupName: MG01
 
