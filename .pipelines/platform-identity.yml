@@ -67,6 +67,6 @@ stages:
             parameters:
               description: 'Deploy Identity - Private DNS Zones'
               moveTemplate: move-subscription.bicep
-              configTemplate: main.bicep
+              templateFile: main.bicep
               deployOperation: ${{ variables['deployOperation'] }}
               workingDir: $(System.DefaultWorkingDirectory)/landingzones
