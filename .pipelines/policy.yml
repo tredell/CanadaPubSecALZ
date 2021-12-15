@@ -2,8 +2,8 @@
 # Copyright (c) Microsoft Corporation.
 # Licensed under the MIT license.
 #
-# THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, 
-# EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES 
+# THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
+# EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES
 # OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.
 # ----------------------------------------------------------------------------------
 
@@ -80,26 +80,26 @@ stages:
     - template: templates/steps/show-variables.yml
       parameters:
         json: ${{ convertToJson(variables) }}
-  
+
     - template: templates/steps/define-policy.yml
       parameters:
         description: 'Define Policies'
         workingDir: $(System.DefaultWorkingDirectory)/policy/custom/definitions/policy
-    
+
     - template: templates/steps/define-policyset.yml
       parameters:
         description: 'Define Policy Set'
-        deployTemplates: [AKS, DefenderForCloud, LogAnalytics, Network, DNSPrivateEndpoints, Tags]
+        deployTemplates: [AKS, DefenderForCloud, LogAnalytics, Network, DNSPrivateEndpoints]
         deployOperation: ${{ variables['deployOperation'] }}
         workingDir: $(System.DefaultWorkingDirectory)/policy/custom/definitions/policyset
-      
+
     - template: templates/steps/assign-policy.yml
       parameters:
         description: 'Assign Policy Set'
-        deployTemplates: [AKS, DefenderForCloud, LogAnalytics, Network, Tags]
+        deployTemplates: [AKS, DefenderForCloud, LogAnalytics, Network]
         deployOperation: ${{ variables['deployOperation'] }}
         workingDir: $(System.DefaultWorkingDirectory)/policy/custom/assignments
-  
+
   - job: BuiltInPolicyJob
     displayName: Built In Policy Job
     dependsOn:
@@ -117,6 +117,6 @@ stages:
     - template: templates/steps/assign-policy.yml
       parameters:
         description: 'Assign Policy Set'
-        deployTemplates: [asb, cis-msft-130, location, nist80053r4, nist80053r5, pbmm, hitrust-hipaa, fedramp-moderate]
+        deployTemplates: [asb, cis-msft-130, location, nist80053r4, nist80053r5, pbmm]
         deployOperation: ${{ variables['deployOperation'] }}
         workingDir: $(System.DefaultWorkingDirectory)/policy/builtin/assignments
