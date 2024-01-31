@@ -96,14 +96,14 @@ stages:
     - template: templates/steps/define-policyset.yml
       parameters:
         description: 'Define Policy Set'
-        deployTemplates: [DNSPrivateEndpoints]
+        deployTemplates: [AKS, DefenderForCloud, DNSPrivateEndpoints, DNSprivateEndpoints, LogAnalytics, Network, Tags]
         deployOperation: ${{ variables['deployOperation'] }}
         workingDir: $(System.DefaultWorkingDirectory)/policy/custom/definitions/policyset
       
     - template: templates/steps/assign-policy.yml
       parameters:
         description: 'Assign Policy Set'
-        deployTemplates: []
+        deployTemplates: [AKS, DefenderForCloud, DNSPrivateEndpoints, DNSprivateEndpoints, LogAnalytics, Network, Tags]
         deployOperation: ${{ variables['deployOperation'] }}
         policyAssignmentManagementGroupScope: $(var-topLevelManagementGroupName)
         workingDir: $(System.DefaultWorkingDirectory)/policy/custom/assignments
